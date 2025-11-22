@@ -1,0 +1,18 @@
+<app-card>
+  <!-- (click) ads listener to click event -->
+  <button [class.active]="selected" (click)="onSelectUser()">
+    <!--
+    Theres two main ways of binding the template
+    to values in the class:
+    - String Interpolation -> {{ selectedUser.name }}
+    - Property Binding -> [src]="'assets/users/' + selectedUser.avatar"
+    -->
+    <img [src]="imagePath" alt="Photo of {{ user.name }}" />
+    <span>{{ user.name }}</span>
+    <!--
+    ** Signal Approach **
+    <img [src]="imagePath()" alt="Photo of {{ name() }}" />
+    <span>{{ name() }}</span>
+    -->
+  </button>
+</app-card>
