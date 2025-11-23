@@ -1,0 +1,50 @@
+<div class="backdrop" (click)="OnClose()"></div>
+<dialog open>
+  <h2>Add Task</h2>
+  <form (ngSubmit)="OnSubmit()">
+    <p>
+      <label for="title">Title</label>
+      <!--
+      #Note:
+        * ngModel is a directive
+        * Directives allow to "enhance" elements
+        * Helps with extracting/changing user input values
+        * Components are directives with templates
+        * [(ngModel)] sets a two way binding (you can listen to input, but also output data, both with one syntax)
+        -->
+      <input type="text" id="title" name="title" [(ngModel)]="enteredTitle" />
+    </p>
+
+    <!--
+    Since it has the same ngModel variable, when writing on one of the input, the content is copies to the other
+    <p>
+      <label for="title2">Title 2</label>
+      <input type="text" id="title2" name="title2" [(ngModel)]="enteredTitle" />
+    </p> -->
+
+    <p>
+      <label for="summary">Summary</label>
+      <textarea
+        id="summary"
+        rows="5"
+        name="summary"
+        [(ngModel)]="enteredSummary"
+      ></textarea>
+    </p>
+
+    <p>
+      <label for="due-date">Due Date</label>
+      <input
+        type="date"
+        id="due-date"
+        name="due-date"
+        [(ngModel)]="enteredDate"
+      />
+    </p>
+
+    <p class="actions">
+      <button type="button" (click)="OnClose()">Cancel</button>
+      <button type="submit">Create</button>
+    </p>
+  </form>
+</dialog>

@@ -1,0 +1,19 @@
+import { Component, Input } from '@angular/core';
+import { ITask } from './task.model';
+import { TasksService } from '../tasks.service';
+
+@Component({
+  selector: 'app-task',
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.scss',
+  standalone: false,
+})
+export class TaskComponent {
+  @Input({ required: true }) task!: ITask;
+
+  constructor(private tasksServices: TasksService) {}
+
+  onCompleteTask() {
+    this.tasksServices.removeTask(this.task.id);
+  }
+}
