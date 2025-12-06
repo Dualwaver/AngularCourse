@@ -4,3 +4,12 @@ export interface IInvestement {
   expectedReturn: number;
   duration: number;
 }
+
+export interface IInvestementResult {
+  year: number;
+  interest: number;
+  valueEndOfYear: number;
+  annualInvestment: number;
+  totalInterest: number;
+  totalAmountInvested: number;
+}

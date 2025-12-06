@@ -1,7 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvestmentResultService } from '../investment/investment-result.service';
-import { IInvestement } from '../investment/investment.model';
+import {
+  IInvestement,
+  IInvestementResult,
+} from '../investment/investment.model';
 
 @Component({
   selector: 'app-user-input',
@@ -10,6 +13,8 @@ import { IInvestement } from '../investment/investment.model';
   styleUrl: './user-input.component.scss',
 })
 export class UserInputComponent {
+  @Output() calculatedInvestment = new EventEmitter<IInvestementResult[]>();
+
   investmentResultService = inject(InvestmentResultService);
 
   enteredIniInvestment = '';
@@ -26,7 +31,8 @@ export class UserInputComponent {
     };
 
     let data = this.investmentResultService.CalculateInvestment(investment);
+    this.calculatedInvestment.emit(data);
+
     console.log(data);
-    return data;
   }
 }

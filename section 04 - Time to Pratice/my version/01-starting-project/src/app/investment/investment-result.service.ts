@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IInvestement } from './investment.model';
+import { IInvestement, IInvestementResult } from './investment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ export class InvestmentResultService {
   constructor() {}
 
   CalculateInvestment(investment: IInvestement) {
-    const annualData = [];
+    const annualData: IInvestementResult[] = [];
     let investmentValue = investment.initialInvestment;
 
     for (let i = 0; i < investment.duration; i++) {
