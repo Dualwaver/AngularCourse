@@ -1,0 +1,11 @@
+<span> <ng-content /> </span>
+<!-- <span class="icon"> → </span> -->
+<span class="icon">
+  <ng-content select="icon">
+    <!-- This is a fallback:
+     in case the element does
+     not contain the selector this is rendered instead
+     -->
+    →
+  </ng-content>
+</span>
