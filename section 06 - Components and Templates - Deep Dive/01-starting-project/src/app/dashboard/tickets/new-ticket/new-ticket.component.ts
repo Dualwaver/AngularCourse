@@ -9,4 +9,9 @@ import { ControlComponent } from '../../../shared/control/control.component';
   templateUrl: './new-ticket.component.html',
   styleUrl: './new-ticket.component.scss',
 })
-export class NewTicketComponent {}
+export class NewTicketComponent {
+  onSubmit(title: string, ticketText: string) {
+    console.log(title);
+    console.log(ticketText);
+  }
+}
