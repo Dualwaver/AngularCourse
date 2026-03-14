@@ -1,5 +1,11 @@
 import {
+  AfterContentInit,
+  afterNextRender,
+  afterRender,
   Component,
+  contentChild,
+  ContentChild,
+  contentChildren,
   ElementRef,
   HostBinding,
   HostListener,
@@ -27,10 +33,29 @@ import {
   // ViewEncapsulation.None -> Disables the shadow DOM feature the component styles will be applied globally,
   //  disabling the :host css feature
 })
-export class ControlComponent {
+export class ControlComponent implements AfterContentInit {
   label = input.required<string>();
 
   private elem = inject(ElementRef); //This will lets us have access to the host element of the component
+
+  // @ContentChild('input') private control?: ElementRef<
+  //   HTMLInputElement | HTMLTextAreaElement
+  // >;
+  private control =
+    contentChild.required<ElementRef<HTMLInputElement | HTMLTextAreaElement>>(
+      'input',
+    );
+
+  // Get Multiple child controls
+  // private controls = contentChildren<ElementRef<HTMLInputElement | HTMLTextAreaElement>>(
+  //   'input',
+  // );
+
+  constructor() {
+    afterRender(() => console.log('afterRender'));
+
+    afterNextRender(() => console.log('afterNextRender'));
+  }
 
   //Serves the same purpose as the host property in the component decorator @Component
   //Using this feature is discouraged (it exists for backwards compatibility), its preferred to use host property
@@ -41,8 +66,13 @@ export class ControlComponent {
   //   console.log('click');
   // }
 
+  ngAfterContentInit(): void {
+    console.log(this.control().nativeElement);
+  }
+
   onClick() {
     console.log('click');
     console.log(this.elem);
+    console.log(this.control());
   }
 }

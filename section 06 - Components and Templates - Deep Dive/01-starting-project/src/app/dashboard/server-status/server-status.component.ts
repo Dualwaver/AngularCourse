@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   Component,
   DestroyRef,
+  effect,
   inject,
   OnDestroy,
   OnInit,
+  signal,
 } from '@angular/core';
 
 @Component({
@@ -18,10 +20,17 @@ import {
 // implementation of this kind of interfaces
 export class ServerStatusComponent implements OnInit, AfterViewInit {
   //, OnDestroy {
-  currentStatus: 'online' | 'offline' | 'unknown' = 'offline';
+  // currentStatus: 'online' | 'offline' | 'unknown' = 'offline';
+  currentStatus = signal<'online' | 'offline' | 'unknown'>('offline');
+
   //Type Returned by setInterval Method
   // private interval?: ReturnType<typeof setInterval>;
   private destroyRef = inject(DestroyRef); // Alternative to ngOnDestroy
+
+  constructor() {
+    //Allows to run code when signal values change
+    effect(() => console.log(this.currentStatus()));
+  }
 
   //Todo: Understand Angular Life Cycle
   ngOnInit() {
@@ -31,11 +40,11 @@ export class ServerStatusComponent implements OnInit, AfterViewInit {
       const random = Math.random();
 
       if (random < 0.5) {
-        this.currentStatus = 'online';
+        this.currentStatus.set('online');
       } else if (random < 0.9) {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       } else {
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
     }, 2000);
 

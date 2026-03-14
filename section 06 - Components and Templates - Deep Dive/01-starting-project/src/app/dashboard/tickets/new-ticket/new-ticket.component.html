@@ -1,6 +1,7 @@
-<form (ngSubmit)="onSubmit(titleInput.value, textInput.value)">
+<form (ngSubmit)="onSubmit(titleInput.value, textInput.value)" #form>
   <app-control label="Title">
-    <input type="text" name="title" id="title" #titleInput />
+    <!-- #input is used as target for control.component to access ContentChild -->
+    <input type="text" name="title" id="title" #titleInput #input />
   </app-control>
   <app-control label="Request">
     <textarea
@@ -9,10 +10,14 @@
       id="request"
       rows="3"
       #textInput
+      #input
     ></textarea>
   </app-control>
   <p>
-    <button appButton>
+    <!-- Since the button has the appButton component selector the btn is of type Button Component  -->
+    <button appButton #btn>
+      <!-- If it did not have the selector btn type would be HTMLButtonElement (standard html element) -->
+      <!-- <button #btn> -->
       Submit
       <span ngProjectAs="icon">⌲</span>
     </button>
